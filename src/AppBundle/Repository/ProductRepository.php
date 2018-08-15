@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Return the list of product with all associated entities.
+     *
+     * @return array|null
+     */
+    public function findAllWhithAllEntities(): ?array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.pictures', 'pic')
+            ->addSelect('pic')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

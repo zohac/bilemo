@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi: ~
@@ -67,5 +67,19 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
+    view:
+        annotations: true
+
+fos_rest:
+    body_converter:
+        enabled: true
+    view:
+        view_response_listener: true
+        formats: { json: true, xml: false, rss: false }
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+            - { path: '^/api/products', priorities: ['json'], fallback_format: 'json' }
