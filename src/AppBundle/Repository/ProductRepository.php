@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Product;
+
 /**
  * ProductRepository.
  *
@@ -22,6 +24,25 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('pic')
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    /**
+     * Return a product with all associated entities.
+     *
+     * @param int $value
+     *
+     * @return Product|null
+     */
+    public function findOneWhithAllEntities(int $value): ?Product
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.pictures', 'pic')
+            ->addSelect('pic')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', (int) $value)
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
 }

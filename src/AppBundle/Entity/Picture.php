@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Picture.
@@ -38,6 +39,8 @@ class Picture
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="pictures", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Exclude()
      */
     private $product;
 
