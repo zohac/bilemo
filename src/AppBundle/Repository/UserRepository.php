@@ -16,6 +16,7 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      * Return the list of product with all associated entities.
      *
      * @param User $user
+     *
      * @return array|null
      */
     public function findAllWhithAllEntities(User $user): ?array
