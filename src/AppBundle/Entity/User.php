@@ -91,7 +91,8 @@ class User implements UserInterface
     /**
      * @var Customer
      *
-     * @ORM\Column(name="customer", type="object")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $customer;
 

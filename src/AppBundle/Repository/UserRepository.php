@@ -30,4 +30,23 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Return a user with all associated entities.
+     *
+     * @param int $value
+     *
+     * @return User|null
+     */
+    public function findOneWhithAllEntities(int $value): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.customer', 'c')
+            ->addSelect('c')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

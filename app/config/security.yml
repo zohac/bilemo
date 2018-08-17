@@ -21,24 +21,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
-
         login:
             pattern:  ^/api/login
             stateless: true
             anonymous: true
             form_login:
                 check_path:               /api/login_check
-                username_parameter:       _username
-                password_parameter:       _password
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
@@ -46,9 +34,13 @@ security:
         api:
             pattern:   ^/api
             stateless: true
+            provider: main
             guard:
                 authenticators:
                     - lexik_jwt_authentication.jwt_token_authenticator
+
+        main:
+            anonymous: ~
 
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

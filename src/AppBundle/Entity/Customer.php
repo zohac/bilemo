@@ -239,9 +239,9 @@ class Customer
     /**
      * Get an user.
      *
-     * @return Collection|User[]
+     * @return User[]
      */
-    public function getUsers(): Collection
+    public function getUsers()
     {
         return $this->users;
     }
