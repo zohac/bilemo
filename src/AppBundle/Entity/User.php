@@ -38,11 +38,11 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="fistname", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"Create"})
      */
-    private $fistname;
+    private $firstname;
 
     /**
      * @var string
@@ -85,8 +85,6 @@ class User implements UserInterface
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
 
@@ -132,27 +130,27 @@ class User implements UserInterface
     }
 
     /**
-     * Set fistname.
+     * Set firstname.
      *
-     * @param string $fistname
+     * @param string $firstname
      *
      * @return User
      */
-    public function setFistname($fistname)
+    public function setFirstname($firstname)
     {
-        $this->fistname = $fistname;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
     /**
-     * Get fistname.
+     * Get firstname.
      *
      * @return string
      */
-    public function getFistname()
+    public function getFirstname()
     {
-        return $this->fistname;
+        return $this->firstname;
     }
 
     /**

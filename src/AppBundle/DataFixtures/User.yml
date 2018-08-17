@@ -1,0 +1,8 @@
+0:
+    username: sjouan
+    firstname: simon
+    lastname: jouan
+    email:  'test@cyberdyne.com'
+    password: 1
+    roles: ['ROLE_USER']
+    customer: 'Cyberdyne'
