@@ -22,7 +22,7 @@ class UserController extends FOSRestController
      *
      * @Security("has_role('ROLE_USER')")
      */
-    public function detail(User $user)
+    public function detailAction(User $user)
     {
         return $user;
     }
