@@ -88,4 +88,22 @@ class UserController extends FOSRestController
 
         return $user;
     }
+
+    /**
+     * @Rest\Delete(
+     *      path="/api/users/{id}",
+     *      name="users_delete",
+     *      requirements = {"id"="\d+"}
+     * )
+     * @Rest\View(StatusCode = 204)
+     *
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function delete(User $user, ObjectManager $entityManager)
+    {
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+        return;
+    }
 }
