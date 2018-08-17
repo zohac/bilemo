@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Exclude;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -67,7 +68,7 @@ class Customer
     /**
      * @var User|null
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="customer", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="customer", orphanRemoval=true)
      *
      * @Exclude()
      */
