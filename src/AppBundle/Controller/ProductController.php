@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -64,7 +63,7 @@ class ProductController extends FOSRestController
      * @Entity("product", expr="repository.findOneWhithAllEntities(id)")
      *
      * @Rest\View(StatusCode = 200)
-     * 
+     *
      * @SWG\Get(
      *     description="Get one product.",
      *     tags = {"Product"},
