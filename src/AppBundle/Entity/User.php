@@ -15,8 +15,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields="email", message="Email déjà utilisé")
  * @UniqueEntity(fields="username", message="Pseudo déjà utilisé.")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * 
- * 
+ *
+ *
  * @Hateoas\Relation(
  *      "self",
  *      href = @Hateoas\Route(
