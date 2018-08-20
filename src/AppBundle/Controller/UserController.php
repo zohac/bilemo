@@ -4,7 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Swagger\Annotations as SWG;
-use App\Utils\UpdateUserHandler;
+use AppBundle\Utils\UpdateUserHandler;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;

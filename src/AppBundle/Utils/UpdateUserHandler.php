@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Utils;
+namespace AppBundle\Utils;
 
-use App\Entity\User;
+use AppBundle\Entity\User;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
