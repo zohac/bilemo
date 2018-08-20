@@ -5,12 +5,29 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * Product.
  *
  * @ORM\Table(name="product")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductRepository")
+ *
+ * @Hateoas\Relation(
+ *      "self",
+ *      href = @Hateoas\Route(
+ *          "product_detail",
+ *          parameters = { "id" = "expr(object.getId())" },
+ *          absolute = true
+ *      )
+ * )
+ * @Hateoas\Relation(
+ *      "list",
+ *      href = @Hateoas\Route(
+ *          "product_list",
+ *          absolute = true
+ *      )
+ * )
  */
 class Product
 {
