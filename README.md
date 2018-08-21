@@ -39,11 +39,11 @@ If you want to use a data set
 
 Configure the jwt authentication
 
-    mkdir -p config/jwt
-    openssl genrsa -out config/jwt/private.pem -aes256 4096
-    openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+    mkdir var/jwt
+    openssl genrsa -out var/jwt/private.pem -aes256 4096
+    openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 
-Changes the pass phrase in the '.env' file.
+Changes the jwt_key_pass_phrase parameter in the 'app/config/parameters.yml' file.
 
 ## Dependency
 
