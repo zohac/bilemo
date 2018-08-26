@@ -78,6 +78,8 @@ sensio_framework_extra:
 fos_rest:
     body_converter:
         enabled: true
+        validate: true
+        validation_errors_argument: violations
     view:
         view_response_listener: true
         formats: { json: true, xml: false, rss: false }
@@ -86,6 +88,10 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+    exception:
+        enabled: true
+        codes:
+           { AppBundle\Exception\ResourceValidationException: 422 }
 
 # lexit Configuration
 lexik_jwt_authentication:
