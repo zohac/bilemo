@@ -9,6 +9,8 @@ use Nelmio\ApiDocBundle\Annotation\Model;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Exception\ResourceValidationException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -166,7 +168,7 @@ class UserController extends FOSRestController
         UserInterface $userOrigin = null,
         UserPasswordEncoderInterface $encoder,
         ObjectManager $entityManager,
-        ConstraintViolationList $violations
+        ConstraintViolationList $violations = null
     ) {
         // Check the contraint in user entity
         if (count($violations)) {
@@ -244,7 +246,7 @@ class UserController extends FOSRestController
         User $user,
         User $userUpdate,
         UpdateUserHandler $handler,
-        ConstraintViolationList $violations
+        ConstraintViolationList $violations = null
     ) {
         // Check the contraint in user entity
         if (count($violations)) {

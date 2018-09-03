@@ -288,20 +288,6 @@ class Product
     }
 
     /**
-     * Set pictures.
-     *
-     * @param \stdClass $pictures
-     *
-     * @return Product
-     */
-    public function setPictures($pictures)
-    {
-        $this->pictures = $pictures;
-
-        return $this;
-    }
-
-    /**
      * Return all pictures.
      *
      * @return Collection|Picture[]

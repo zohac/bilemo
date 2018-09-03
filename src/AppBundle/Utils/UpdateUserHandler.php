@@ -33,7 +33,7 @@ class UpdateUserHandler
     /**
      * Undocumented function.
      *
-     * @param User $userBeforeUpdate
+     * @param User $userUpdate
      * @param User $user
      *
      * @return User
