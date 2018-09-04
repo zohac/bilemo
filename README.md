@@ -45,6 +45,17 @@ Configure the jwt authentication
 
 Changes the jwt_key_pass_phrase parameter in the 'app/config/parameters.yml' file.
 
+## Tests
+
+Configure the application by completing the file /app/config/parameters.yml
+Create a variable 'database_test_name: bilemo_test'.
+
+    php bin/console doctrine:schema:update --force --env=test
+
+If you want to use a data set
+
+    php bin/console doctrine:fixtures:load --env=test
+
 ## Dependency
 
 * FOSRestBundle "friendsofsymfony/rest-bundle"

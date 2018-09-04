@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -73,6 +74,8 @@ class User implements UserInterface
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      *
      * @Assert\NotBlank(groups={"Create"})
+     * 
+     * @Groups({"user"})
      */
     private $username;
 
@@ -82,6 +85,8 @@ class User implements UserInterface
      * @ORM\Column(name="firstname", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"Create"})
+     * 
+     * @Groups({"user"})
      */
     private $firstname;
 
@@ -91,6 +96,8 @@ class User implements UserInterface
      * @ORM\Column(name="lastname", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"Create"})
+     * 
+     * @Groups({"user"})
      */
     private $lastname;
 
@@ -100,6 +107,8 @@ class User implements UserInterface
      * @ORM\Column(name="email", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"Create"})
+     * 
+     * @Groups({"user"})
      */
     private $email;
 
@@ -114,6 +123,8 @@ class User implements UserInterface
      *      message="Le mot de passe doit comporter au moins 6 caractères, minuscule, majuscule et numérique."
      * )
      * @Assert\NotBlank(groups={"Create"})
+     * 
+     * @Groups({"user"})
      */
     private $password;
 
