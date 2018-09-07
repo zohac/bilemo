@@ -116,7 +116,7 @@ class UserController extends FOSRestController
      *      "user",
      *      converter="fos_rest.request_body",
      *      options={
-     *         "validator"={ "groups"="Create" }
+     *         "validator"={ "groups"="create" }
      *     }
      * )
      *

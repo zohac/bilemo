@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation as Serializer;
 use Hateoas\Configuration\Annotation as Hateoas;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -73,9 +73,9 @@ class User implements UserInterface
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      *
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"create", "update"})
      * 
-     * @Groups({"user"})
+     * @Serializer\Groups({"user"})
      */
     private $username;
 
@@ -84,9 +84,9 @@ class User implements UserInterface
      *
      * @ORM\Column(name="firstname", type="string", length=255)
      *
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"create", "update"})
      * 
-     * @Groups({"user"})
+     * @Serializer\Groups({"user"})
      */
     private $firstname;
 
@@ -95,9 +95,9 @@ class User implements UserInterface
      *
      * @ORM\Column(name="lastname", type="string", length=255)
      *
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"create", "update"})
      * 
-     * @Groups({"user"})
+     * @Serializer\Groups({"user"})
      */
     private $lastname;
 
@@ -106,9 +106,9 @@ class User implements UserInterface
      *
      * @ORM\Column(name="email", type="string", length=255)
      *
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"create", "update"})
      * 
-     * @Groups({"user"})
+     * @Serializer\Groups({"user"})
      */
     private $email;
 
@@ -122,9 +122,11 @@ class User implements UserInterface
      *      pattern="/^[a-zA-Z0-9]{6,}$/",
      *      message="Le mot de passe doit comporter au moins 6 caractères, minuscule, majuscule et numérique."
      * )
-     * @Assert\NotBlank(groups={"Create"})
+     * @Assert\NotBlank(groups={"create"})
      * 
-     * @Groups({"user"})
+     * @Serializer\Groups({"user"})
+     * 
+     * @Serializer\Exclude()
      */
     private $password;
 
@@ -137,6 +139,8 @@ class User implements UserInterface
 
     /**
      * @var string
+     * 
+     * @Serializer\Exclude()
      */
     private $salt;
 

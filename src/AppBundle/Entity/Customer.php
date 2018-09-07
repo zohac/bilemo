@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -27,6 +27,8 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $name;
 
@@ -34,6 +36,8 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $email;
 
@@ -41,6 +45,8 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255)
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $phoneNumber;
 
@@ -48,6 +54,8 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $address;
 
@@ -55,6 +63,10 @@ class Customer
      * @var int
      *
      * @ORM\Column(name="postalCode", type="integer")
+     * 
+     * @Serializer\SerializedName("phoneNumber")
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $postalCode;
 
@@ -62,6 +74,8 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * 
+     * @Serializer\Groups({"customer"})
      */
     private $country;
 
@@ -70,7 +84,7 @@ class Customer
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="customer", orphanRemoval=true)
      *
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     private $users;
 
