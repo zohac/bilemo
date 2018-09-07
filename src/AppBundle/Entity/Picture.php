@@ -26,7 +26,7 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"picture"})
      */
     private $name;
@@ -35,7 +35,7 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"picture"})
      */
     private $path;

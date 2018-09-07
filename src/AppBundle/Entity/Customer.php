@@ -27,7 +27,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $name;
@@ -36,7 +36,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $email;
@@ -45,7 +45,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $phoneNumber;
@@ -54,7 +54,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $address;
@@ -63,9 +63,9 @@ class Customer
      * @var int
      *
      * @ORM\Column(name="postalCode", type="integer")
-     * 
+     *
      * @Serializer\SerializedName("phoneNumber")
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $postalCode;
@@ -74,7 +74,7 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"customer"})
      */
     private $country;

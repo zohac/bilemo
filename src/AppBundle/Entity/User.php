@@ -74,7 +74,7 @@ class User implements UserInterface
      * @ORM\Column(name="username", type="string", length=255, unique=true)
      *
      * @Assert\NotBlank(groups={"create", "update"})
-     * 
+     *
      * @Serializer\Groups({"user"})
      */
     private $username;
@@ -85,7 +85,7 @@ class User implements UserInterface
      * @ORM\Column(name="firstname", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"create", "update"})
-     * 
+     *
      * @Serializer\Groups({"user"})
      */
     private $firstname;
@@ -96,7 +96,7 @@ class User implements UserInterface
      * @ORM\Column(name="lastname", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"create", "update"})
-     * 
+     *
      * @Serializer\Groups({"user"})
      */
     private $lastname;
@@ -107,7 +107,7 @@ class User implements UserInterface
      * @ORM\Column(name="email", type="string", length=255)
      *
      * @Assert\NotBlank(groups={"create", "update"})
-     * 
+     *
      * @Serializer\Groups({"user"})
      */
     private $email;
@@ -123,9 +123,9 @@ class User implements UserInterface
      *      message="Le mot de passe doit comporter au moins 6 caractères, minuscule, majuscule et numérique."
      * )
      * @Assert\NotBlank(groups={"create"})
-     * 
+     *
      * @Serializer\Groups({"user"})
-     * 
+     *
      * @Serializer\Exclude()
      */
     private $password;
@@ -139,7 +139,7 @@ class User implements UserInterface
 
     /**
      * @var string
-     * 
+     *
      * @Serializer\Exclude()
      */
     private $salt;

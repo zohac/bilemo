@@ -45,7 +45,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $name;
@@ -54,7 +54,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $model;
@@ -63,7 +63,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $description;
@@ -72,7 +72,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="manufacturer", type="string", length=255)
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $manufacturer;
@@ -81,7 +81,7 @@ class Product
      * @var int
      *
      * @ORM\Column(name="stock", type="integer", nullable=true)
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $stock;
@@ -90,7 +90,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="TVA", type="float")
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $tVA;
@@ -99,7 +99,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="priceHT", type="float", nullable=true)
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $priceHT;
@@ -113,7 +113,7 @@ class Product
      *      cascade={"persist"},
      *      orphanRemoval=true
      * )
-     * 
+     *
      * @Serializer\Groups({"product"})
      */
     private $pictures;
