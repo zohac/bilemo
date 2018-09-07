@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Picture.
@@ -26,6 +26,8 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     *
+     * @Serializer\Groups({"picture"})
      */
     private $name;
 
@@ -33,6 +35,8 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
+     *
+     * @Serializer\Groups({"picture"})
      */
     private $path;
 
@@ -40,7 +44,7 @@ class Picture
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Product", inversedBy="pictures", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      *
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     private $product;
 
