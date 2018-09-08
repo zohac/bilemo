@@ -4,8 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Swagger\Annotations as SWG;
+use AppBundle\Form\User\CreateType;
 use AppBundle\Utils\UpdateUserHandler;
+use AppBundle\Utils\User\CreateHandler;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -15,7 +18,6 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends FOSRestController
 {
@@ -112,13 +114,6 @@ class UserController extends FOSRestController
      *      path="/api/users",
      *      name="users_detail",
      * )
-     * @ParamConverter(
-     *      "user",
-     *      converter="fos_rest.request_body",
-     *      options={
-     *         "validator"={ "groups"="create" }
-     *     }
-     * )
      *
      * @Rest\View(StatusCode = 201)
      *
@@ -163,31 +158,18 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function createAction(
-        User $user,
-        UserInterface $userOrigin = null,
-        UserPasswordEncoderInterface $encoder,
-        ObjectManager $entityManager,
-        ConstraintViolationList $violations = null
-    ) {
-        // Check the contraint in user entity
-        if (count($violations)) {
-            throw new ResourceValidationException($violations);
-        }
+    public function createAction(Request $request, CreateHandler $handler)
+    {
+        $data = json_decode($request->getContent(), true);
 
-        // Set the Customer
-        $user->setCustomer($userOrigin->getCustomer());
-        // Encode the password
-        $password = $encoder->encodePassword($user, $user->getPassword());
-        $user->setPassword($password);
-        // Set Role
-        $user->setRoles(['ROLE_USER']);
+        // Build the form
+        $form = $this->createForm(CreateType::class);
 
-        // Save the new user
-        $entityManager->persist($user);
-        $entityManager->flush();
+        // Submit the form
+        $form->submit($data);
 
-        return $user;
+        // Return the user
+        return $handler->handle($form);
     }
 
     /**

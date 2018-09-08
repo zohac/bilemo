@@ -46,6 +46,7 @@ class Customer
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255)
      *
+     * @Serializer\SerializedName("phoneNumber")
      * @Serializer\Groups({"customer"})
      */
     private $phoneNumber;
@@ -64,8 +65,7 @@ class Customer
      *
      * @ORM\Column(name="postalCode", type="integer")
      *
-     * @Serializer\SerializedName("phoneNumber")
-     *
+     * @Serializer\SerializedName("postalCode")
      * @Serializer\Groups({"customer"})
      */
     private $postalCode;
