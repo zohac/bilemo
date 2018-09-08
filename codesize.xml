@@ -10,7 +10,7 @@
         MyRuleset...
     </description>
 
-    <exclude-pattern>src/DataFixtures</exclude-pattern>
+    <exclude-pattern>src/AppBundle/DataFixtures</exclude-pattern>
 
     <rule ref="rulesets/cleancode.xml"/>
     <rule ref="rulesets/codesize.xml"/>

@@ -6,7 +6,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi: ~
@@ -30,6 +30,8 @@ framework:
     assets: ~
     php_errors:
         log: true
+    templating:
+        engines: ['twig']
 
 # Twig Configuration
 twig:
@@ -67,5 +69,45 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
+    view:
+        annotations: true
+
+# Fos_rest Configuration
+fos_rest:
+    body_converter:
+        enabled: true
+        validate: true
+        validation_errors_argument: violations
+    view:
+        view_response_listener: true
+        formats: { json: true, xml: false, rss: false }
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+            - { path: '^/api', priorities: ['json'], fallback_format: 'json' }
+    exception:
+        enabled: true
+        codes:
+           { AppBundle\Exception\ResourceValidationException: 422 }
+
+# lexit Configuration
+lexik_jwt_authentication:
+    secret_key:       '%kernel.project_dir%/var/jwt/private.pem' # required for token creation
+    public_key:       '%kernel.project_dir%/var/jwt/public.pem'  # required for token verification
+    pass_phrase:      '%jwt_key_pass_phrase%' # required for token creation, usage of an environment variable is recommended
+    token_ttl:        3600
+
+# nelmio Configuration
+nelmio_api_doc:
+    documentation:
+        info:
+            title: Bilemo api
+            description: This is an awesome app!
+            version: 1.0.0
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api/products
+            - ^/api/users
