@@ -5,16 +5,15 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\User;
 use Swagger\Annotations as SWG;
 use AppBundle\Form\User\CreateType;
-use AppBundle\Utils\UpdateUserHandler;
+use AppBundle\Form\User\UpdateType;
 use AppBundle\Utils\User\CreateHandler;
+use AppBundle\Utils\User\UpdateHandler;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use AppBundle\Exception\ResourceValidationException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\ConstraintViolationList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -160,6 +159,7 @@ class UserController extends FOSRestController
      */
     public function createAction(Request $request, CreateHandler $handler)
     {
+        // Get the data POST
         $data = json_decode($request->getContent(), true);
 
         // Build the form
@@ -168,24 +168,25 @@ class UserController extends FOSRestController
         // Submit the form
         $form->submit($data);
 
-        // Return the user
+        // Create the user
         return $handler->handle($form);
     }
 
     /**
-     * @Rest\Put(
+     * Update one user.
+     *
+     * @Rest\Patch(
      *      path="/api/users/{id}",
      *      name="users_update",
      *      requirements = {"id"="\d+"}
      * )
-     * @ParamConverter("userUpdate", converter="fos_rest.request_body")
      * @ParamConverter("user",  options={"mapping"={"id"="id"}})
      *
      * @Rest\View(StatusCode = 200)
      *
      * @Security("has_role('ROLE_USER')")
      *
-     * @SWG\Put(
+     * @SWG\Patch(
      *     description="Update one user.",
      *     tags = {"User"},
      *     @SWG\Response(
@@ -224,18 +225,19 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function update(
-        User $user,
-        User $userUpdate,
-        UpdateUserHandler $handler,
-        ConstraintViolationList $violations = null
-    ) {
-        // Check the contraint in user entity
-        if (count($violations)) {
-            throw new ResourceValidationException($violations);
-        }
+    public function updateAction(Request $request, UpdateHandler $handler, User $user)
+    {
+        // Get the data POST
+        $data = json_decode($request->getContent(), true);
+
+        // Build the form
+        $form = $this->createForm(UpdateType::class);
+
+        // Submit the form
+        $form->submit($data);
+
         // Update the user
-        return $handler->update($userUpdate, $user);
+        return $handler->handle($form, $user);
     }
 
     /**

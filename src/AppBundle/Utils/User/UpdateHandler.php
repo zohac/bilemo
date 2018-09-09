@@ -6,20 +6,14 @@ use AppBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Exception\FormValidationException;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class CreateHandler
+class UpdateHandler
 {
     /**
      * @var ObjectManager
      */
     private $entityManager;
-
-    /**
-     * @var UserPasswordEncoderInterface
-     */
-    private $passwordEncoder;
 
     /**
      * @var TokenStorageInterface
@@ -29,17 +23,14 @@ class CreateHandler
     /**
      * Constructor.
      *
-     * @param ObjectManager                $entityManager
-     * @param UserPasswordEncoderInterface $passwordEncoder
-     * @param TokenStorageInterface        $tokenStorage
+     * @param ObjectManager         $entityManager
+     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         ObjectManager $entityManager,
-        UserPasswordEncoderInterface $passwordEncoder,
         TokenStorageInterface $tokenStorage
     ) {
         $this->entityManager = $entityManager;
-        $this->passwordEncoder = $passwordEncoder;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -50,18 +41,25 @@ class CreateHandler
      *
      * @return User
      */
-    public function handle(FormInterface $form): User
+    public function handle(FormInterface $form, User $user): User
     {
         if ($form->isValid()) {
-            $user = $form->getData();
+            // 1) Get the data from the form
+            $userUpdate = $form->getData();
 
-            // Set the Customer
-            $user->setCustomer($this->tokenStorage->getToken()->getUser()->getCustomer());
-            // Encode the password
-            $password = $this->passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-            // Set Role
-            $user->setRoles(['ROLE_USER']);
+            // 2) Update the user
+            if ($userUpdate->getUsername()) {
+                $user->setUsername($userUpdate->getUsername());
+            }
+            if ($userUpdate->getFirstname()) {
+                $user->setFirstname($userUpdate->getFirstname());
+            }
+            if ($userUpdate->getLastname()) {
+                $user->setLastname($userUpdate->getLastname());
+            }
+            if ($userUpdate->getEmail()) {
+                $user->setEmail($userUpdate->getEmail());
+            }
 
             // 5) save the user
             $this->entityManager->persist($user);
