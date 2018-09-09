@@ -8,7 +8,9 @@ use AppBundle\Form\User\CreateType;
 use AppBundle\Form\User\UpdateType;
 use AppBundle\Utils\User\CreateHandler;
 use AppBundle\Utils\User\UpdateHandler;
+use AppBundle\Utils\User\PasswordHandler;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use AppBundle\Form\User\UpdatePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -232,6 +234,73 @@ class UserController extends FOSRestController
 
         // Build the form
         $form = $this->createForm(UpdateType::class);
+
+        // Submit the form
+        $form->submit($data);
+
+        // Update the user
+        return $handler->handle($form, $user);
+    }
+
+    /**
+     * Update a user's password.
+     *
+     * @Rest\Patch(
+     *      path="/api/users/password",
+     *      name="users_update_password",
+     *      requirements = {"id"="\d+"}
+     * )
+     *
+     * @Rest\View(StatusCode = 200)
+     *
+     * @Security("has_role('ROLE_USER')")
+     *
+     * @SWG\Patch(
+     *     description="Update a user's password.",
+     *     tags = {"User"},
+     *     @SWG\Response(
+     *          response=200,
+     *          description="successful operation"
+     *     ),
+     *      @SWG\Response(
+     *         response="400",
+     *         description="Invalid json message received",
+     *     ),
+     *     @SWG\Response(
+     *         response="401",
+     *         description="Unauthorized: JWT Token not found / Expired JWT Token / Invalid JWT Token",
+     *     ),
+     *     @SWG\Response(
+     *          response=405,
+     *          description="Method Not Allowed"
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Body",
+     *          required= true,
+     *          in="body",
+     *          type="string",
+     *          description="All property user to add",
+     *          @SWG\Schema(
+     *              type="array",
+     *              @Model(type=User::class, groups={"user"})
+     *          )
+     *      ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          required= true,
+     *          in="header",
+     *          type="string",
+     *          description="Bearer Token",
+     *     )
+     * )
+     */
+    public function updatePasswordAction(Request $request, PasswordHandler $handler, UserInterface $user)
+    {
+        // Get the data POST
+        $data = json_decode($request->getContent(), true);
+
+        // Build the form
+        $form = $this->createForm(UpdatePasswordType::class);
 
         // Submit the form
         $form->submit($data);

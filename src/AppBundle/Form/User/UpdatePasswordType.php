@@ -2,19 +2,15 @@
 
 namespace AppBundle\Form\User;
 
-use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class CreateType extends AbstractType
+class UpdatePasswordType extends AbstractType
 {
     /**
      * Build the form.
@@ -29,21 +25,6 @@ class CreateType extends AbstractType
 
         // The entity fields are added to our form.
         $builder
-            ->add('username', TextType::class, [
-                'constraints' => [new NotBlank()],
-            ])
-            ->add('firstname', TextType::class, [
-                'constraints' => [new NotBlank()],
-            ])
-            ->add('lastname', TextType::class, [
-                'constraints' => [new NotBlank()],
-            ])
-            ->add('email', EmailType::class, [
-                'constraints' => [
-                    new Email(),
-                    new NotBlank(),
-                ],
-            ])
             ->add('password', PasswordType::class, [
                 'constraints' => [
                     new Length(['max' => 4096]),
@@ -65,7 +46,6 @@ class CreateType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
             'csrf_protection' => false,
         ]);
     }
