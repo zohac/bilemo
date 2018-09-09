@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\EventListener\AntiSqlInjectionFormListener;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UpdatePasswordType extends AbstractType
@@ -35,7 +36,8 @@ class UpdatePasswordType extends AbstractType
                     ]),
                     new NotBlank(),
                 ],
-            ]);
+            ])
+            ->addEventSubscriber(new AntiSqlInjectionFormListener());
     }
 
     /**

@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\EventListener\AntiSqlInjectionFormListener;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class UpdateType extends AbstractType
@@ -32,7 +33,8 @@ class UpdateType extends AbstractType
                 'constraints' => [
                     new Email(),
                 ],
-            ]);
+            ])
+            ->addEventSubscriber(new AntiSqlInjectionFormListener());
     }
 
     /**
