@@ -6,15 +6,15 @@ use AppBundle\Entity\User;
 use Swagger\Annotations as SWG;
 use AppBundle\Form\User\CreateType;
 use AppBundle\Form\User\UpdateType;
-use AppBundle\Utils\User\CreateHandler;
-use AppBundle\Utils\User\UpdateHandler;
-use AppBundle\Utils\User\PasswordHandler;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use AppBundle\Form\User\UpdatePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Controller\FOSRestController;
+use AppBundle\Service\User\UserCreateHandlerService;
+use AppBundle\Service\User\UserUpdateHandlerService;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Service\User\UserPasswordHandlerService;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -159,7 +159,7 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function createAction(Request $request, CreateHandler $handler)
+    public function createAction(Request $request, UserCreateHandlerService $userCreateHandler)
     {
         // Get the data POST
         $data = json_decode($request->getContent(), true);
@@ -171,7 +171,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Create the user
-        return $handler->handle($form);
+        return $userCreateHandler->handle($form);
     }
 
     /**
@@ -227,7 +227,7 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function updateAction(Request $request, UpdateHandler $handler, User $user)
+    public function updateAction(Request $request, UserUpdateHandlerService $userUpdateHandler, User $user)
     {
         // Get the data POST
         $data = json_decode($request->getContent(), true);
@@ -239,7 +239,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Update the user
-        return $handler->handle($form, $user);
+        return $userUpdateHandler->handle($form, $user);
     }
 
     /**
@@ -293,8 +293,11 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function updatePasswordAction(Request $request, PasswordHandler $handler, UserInterface $user)
-    {
+    public function updatePasswordAction(
+        Request $request,
+        UserPasswordHandlerService $userPasswordHandler,
+        UserInterface $user
+    ) {
         // Get the data POST
         $data = json_decode($request->getContent(), true);
 
@@ -305,7 +308,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Update the user
-        return $handler->handle($form, $user);
+        return $userPasswordHandler->handle($form, $user);
     }
 
     /**

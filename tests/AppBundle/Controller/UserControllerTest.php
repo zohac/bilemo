@@ -20,7 +20,7 @@ class UserControllerTest extends WebTestCase
     {
         parent::setUp();
 
-        // Last, mock the EntityManager to return the mock of the repository
+        // Mock the EntityManager to return the mock of the repository
         $this->entityManager = $this
             ->getMockBuilder('\Doctrine\Common\Persistence\ObjectManager')
             ->disableOriginalConstructor()
@@ -36,8 +36,11 @@ class UserControllerTest extends WebTestCase
      */
     protected function getUser(string $username = 'test'): User
     {
+        // Create new client
         $client = static::createClient();
+        // Get the entityManager
         $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+        // Get a User
         $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
 
         return $user;
@@ -53,7 +56,9 @@ class UserControllerTest extends WebTestCase
      */
     protected function createAuthenticatedClient($username = 'user', $password = 'password')
     {
+        // Create a client
         $client = static::createClient();
+        // Send username and password
         $client->request(
             'POST',
             '/api/login_check',
@@ -62,12 +67,15 @@ class UserControllerTest extends WebTestCase
                 '_password' => $password,
             )
         );
-
+        // Decode json data to retrieve the token
         $data = json_decode($client->getResponse()->getContent(), true);
 
+        // Erase client with new
         $client = static::createClient();
+        // Send data with
         $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 
+        // Return the authenticated client
         return $client;
     }
 
@@ -76,9 +84,11 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetListActionWithToken()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
+        // Test the route
         $client->request('GET', '/api/users');
-
+        // Check the response
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
@@ -87,9 +97,11 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetListActionWithoutToken()
     {
+        // Create an un-authenticated client
         $client = static::createClient();
+        // Test the route
         $client->request('GET', '/api/users');
-
+        // Check the response
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
@@ -98,10 +110,13 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetDetailActionWithToken()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
+        // Retrieves a user from the database
         $user = $this->getUser('sjouan');
+        // Test the route
         $client->request('GET', '/api/users/'.$user->getId());
-
+        // Check the response
         $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 
@@ -110,10 +125,13 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetDetailActionWithoutToken()
     {
+        // Create an un-authenticated client
         $client = static::createClient();
+        // Retrieves a user from the database
         $user = $this->getUser('sjouan');
+        // Test the route
         $client->request('GET', '/api/users/'.$user->getId());
-
+        // Check the response
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
@@ -122,7 +140,9 @@ class UserControllerTest extends WebTestCase
      */
     public function testPostCreateActionWithToken()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
+        // Test the route with post data
         $client->request(
             'POST',
             '/api/users',
@@ -131,15 +151,15 @@ class UserControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode(
                 [
-                    'username' => 'test2',
-                    'firstname' => 'test2',
-                    'lastname' => 'test2',
-                    'email' => 'test2@test.com',
+                    'username' => 'test',
+                    'firstname' => 'test',
+                    'lastname' => 'test',
+                    'email' => 'test@test.com',
                     'password' => '1GreatPassword',
                 ]
             )
         );
-
+        // Check the response
         $this->assertSame(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
     }
 
@@ -148,7 +168,9 @@ class UserControllerTest extends WebTestCase
      */
     public function testPostCreateActionWithoutToken()
     {
+        // Create an un-authenticated client
         $client = static::createClient();
+        // Test the route with post data
         $client->request(
             'POST',
             '/api/users',
@@ -165,7 +187,7 @@ class UserControllerTest extends WebTestCase
                 ]
             )
         );
-
+        // Check the response
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
@@ -174,7 +196,9 @@ class UserControllerTest extends WebTestCase
      */
     public function testPostCreateActionWithException()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
+        // Test the route with post data
         $client->request(
             'POST',
             '/api/users',
@@ -183,11 +207,11 @@ class UserControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode(
                 [
-                    'username' => 'test3',
+                    'username' => 'test',
                 ]
             )
         );
-
+        // Check the response
         $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $client->getResponse()->getStatusCode());
     }
 
@@ -196,37 +220,13 @@ class UserControllerTest extends WebTestCase
      */
     public function testUpdateActionWithToken()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
-        $user = $this->getUser('test2');
-        $client->request(
-            'PUT',
-            '/api/users/'.$user->getId(),
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            json_encode(
-                [
-                    'username' => 'test',
-                    'firstname' => 'test',
-                    'lastname' => 'test',
-                    'email' => 'test@test.com',
-                    'password' => 'A1GreatPassword',
-                ]
-            )
-        );
-
-        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * test UpdateAction without token.
-     */
-    public function testUpdateActionWithoutToken()
-    {
-        $client = static::createClient();
+        // Retrieves a user from the database
         $user = $this->getUser('test');
+        // Test the route with patch data
         $client->request(
-            'PUT',
+            'PATCH',
             '/api/users/'.$user->getId(),
             [],
             [],
@@ -236,11 +236,53 @@ class UserControllerTest extends WebTestCase
                     'firstname' => 'test2',
                     'lastname' => 'test2',
                     'email' => 'test2@test.com',
-                    'password' => 'A1GreatPassword',
                 ]
             )
         );
+        // Check the response
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
 
+    /**
+     * test UpdateAction without token.
+     */
+    public function testUpdateActionWithoutToken()
+    {
+        // Create an un-authenticated client
+        $client = static::createClient();
+        // Retrieves a user from the database
+        $user = $this->getUser('test');
+        // Test the route with patch data
+        $client->request(
+            'PATCH',
+            '/api/users/'.$user->getId(),
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode(
+                [
+                    'firstname' => 'test2',
+                    'lastname' => 'test2',
+                    'email' => 'test2@test.com',
+                ]
+            )
+        );
+        // Check the response
+        $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+    }
+    
+    /**
+     * test DeleteAction without token.
+     */
+    public function testDeleteActionWithoutToken()
+    {
+        // Create an un-authenticated client
+        $client = static::createClient();
+        // Retrieves a user from the database
+        $user = $this->getUser('test');
+        // Test the route to delete a user
+        $client->request('DELETE', '/api/users/'.$user->getId());
+        // Check the response
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
@@ -249,22 +291,14 @@ class UserControllerTest extends WebTestCase
      */
     public function testDeleteActionWithToken()
     {
+        // Get an authenticated client
         $client = $this->createAuthenticatedClient('sjouan', '1');
+        // Retrieves a user from the database
         $user = $this->getUser('test');
+        // Test the route to delete a user
         $client->request('DELETE', '/api/users/'.$user->getId());
-
+        // Check the response
         $this->assertSame(Response::HTTP_NO_CONTENT, $client->getResponse()->getStatusCode());
-    }
-
-    /**
-     * test DeleteAction without token.
-     */
-    public function testDeleteActionWithoutToken()
-    {
-        $client = static::createClient();
-        $client->request('DELETE', '/api/users/1');
-
-        $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
 
     /**
