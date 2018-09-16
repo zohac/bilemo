@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\EventListener\AntiSqlInjectionFormListener;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
@@ -54,7 +55,8 @@ class CreateType extends AbstractType
                     ]),
                     new NotBlank(),
                 ],
-            ]);
+            ])
+            ->addEventSubscriber(new AntiSqlInjectionFormListener());
     }
 
     /**

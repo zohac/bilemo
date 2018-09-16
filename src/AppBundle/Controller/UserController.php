@@ -247,8 +247,7 @@ class UserController extends FOSRestController
      *
      * @Rest\Patch(
      *      path="/api/users/password",
-     *      name="users_update_password",
-     *      requirements = {"id"="\d+"}
+     *      name="users_update_password"
      * )
      *
      * @Rest\View(StatusCode = 200)

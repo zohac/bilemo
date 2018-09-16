@@ -49,6 +49,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *      )
  * )
  * @Hateoas\Relation(
+ *      "updatePassword",
+ *      href = @Hateoas\Route(
+ *          "users_update_password",
+ *          absolute = true
+ *      )
+ * )
+ * @Hateoas\Relation(
  *      "delete",
  *      href = @Hateoas\Route(
  *          "users_delete",
