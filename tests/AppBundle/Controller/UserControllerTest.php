@@ -261,16 +261,62 @@ class UserControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode(
                 [
-                    'firstname' => 'test2',
-                    'lastname' => 'test2',
-                    'email' => 'test2@test.com',
+                    'password' => '1GreatPassword',
                 ]
             )
         );
         // Check the response
         $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
     }
-    
+
+    /**
+     * test UpdatePasswordAction with token.
+     */
+    public function testUpdatePasswordActionWithToken()
+    {
+        // Get an authenticated client
+        $client = $this->createAuthenticatedClient('test', '1GreatPassword');
+        // Test the route with patch data
+        $client->request(
+            'PATCH',
+            '/api/users/password',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode(
+                [
+                    'password' => '2GreatPassword',
+                ]
+            )
+        );
+        // Check the response
+        $this->assertSame(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+    }
+
+    /**
+     * test UpdatePasswordAction without token.
+     */
+    public function testUpdatePasswordActionWithoutToken()
+    {
+        // Create an un-authenticated client
+        $client = static::createClient();
+        // Test the route with patch data
+        $client->request(
+            'PATCH',
+            '/api/users/password',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode(
+                [
+                    'password' => '1GreatPassword',
+                ]
+            )
+        );
+        // Check the response
+        $this->assertSame(Response::HTTP_UNAUTHORIZED, $client->getResponse()->getStatusCode());
+    }
+
     /**
      * test DeleteAction without token.
      */
