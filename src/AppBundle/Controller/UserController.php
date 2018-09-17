@@ -4,16 +4,16 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use Swagger\Annotations as SWG;
-use AppBundle\Form\User\CreateType;
-use AppBundle\Form\User\UpdateType;
+use AppBundle\Form\User\UserCreateType;
+use AppBundle\Form\User\UserUpdateType;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use AppBundle\Form\User\UpdatePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Form\User\UserUpdatePasswordType;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Service\User\UserCreateHandlerService;
 use AppBundle\Service\User\UserUpdateHandlerService;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Service\User\UserPasswordHandlerService;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -165,7 +165,7 @@ class UserController extends FOSRestController
         $data = json_decode($request->getContent(), true);
 
         // Build the form
-        $form = $this->createForm(CreateType::class);
+        $form = $this->createForm(UserCreateType::class);
 
         // Submit the form
         $form->submit($data);
@@ -233,7 +233,7 @@ class UserController extends FOSRestController
         $data = json_decode($request->getContent(), true);
 
         // Build the form
-        $form = $this->createForm(UpdateType::class);
+        $form = $this->createForm(UserUpdateType::class);
 
         // Submit the form
         $form->submit($data);
@@ -302,7 +302,7 @@ class UserController extends FOSRestController
         $data = json_decode($request->getContent(), true);
 
         // Build the form
-        $form = $this->createForm(UpdatePasswordType::class);
+        $form = $this->createForm(UserUpdatePasswordType::class);
 
         // Submit the form
         $form->submit($data);

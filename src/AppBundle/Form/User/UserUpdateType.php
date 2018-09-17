@@ -2,16 +2,16 @@
 
 namespace AppBundle\Form\User;
 
+use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\EventListener\AntiSqlInjectionFormListener;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
-class UpdatePasswordType extends AbstractType
+class UserUpdateType extends AbstractType
 {
     /**
      * Build the form.
@@ -26,15 +26,12 @@ class UpdatePasswordType extends AbstractType
 
         // The entity fields are added to our form.
         $builder
-            ->add('password', PasswordType::class, [
+            ->add('username', TextType::class, [])
+            ->add('firstname', TextType::class, [])
+            ->add('lastname', TextType::class, [])
+            ->add('email', EmailType::class, [
                 'constraints' => [
-                    new Length(['max' => 4096]),
-                    new Regex([
-                        'pattern' => '/^[a-zA-Z0-9]{6,}$/',
-                        'message' => 'Le mot de passe doit comporter au moins 6 caractères,
-                        minuscule, majuscule et numérique.',
-                    ]),
-                    new NotBlank(),
+                    new Email(),
                 ],
             ])
             ->addEventSubscriber(new AntiSqlInjectionFormListener());
@@ -48,6 +45,7 @@ class UpdatePasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'data_class' => User::class,
             'csrf_protection' => false,
         ]);
     }
