@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Utils\User;
+namespace AppBundle\Service\User;
 
 use AppBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Exception\FormValidationException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class UpdateHandler
+class UserUpdateHandlerService
 {
     /**
      * @var ObjectManager
