@@ -7,11 +7,14 @@ require __DIR__.'/../vendor/autoload.php';
 /**
  * BlackFire extension
  */
-/*
 // If the header is set
 if (isset($_SERVER['HTTP_BLACKFIRETRIGGER'])) {
+    $config = new \Blackfire\ClientConfiguration();
+    $config->setClientId('852814fc-548f-4216-bc37-03d5aab5662f');
+    $config->setClientToken('c54644f37928f624f157280c2e1ec5353a11044c81022b4bfdcee1dc9284cc00');
+
     // let's create a client
-    $blackfire = new \Blackfire\Client();
+    $blackfire = new \Blackfire\Client($config);
     // then start the probe
     $probe = $blackfire->createProbe();
 
@@ -20,7 +23,7 @@ if (isset($_SERVER['HTTP_BLACKFIRETRIGGER'])) {
         // See the PHP SDK documentation for using the $profile object
         $profile = $blackfire->endProbe($probe);
     });
-}*/
+}
 
 if (PHP_VERSION_ID < 70000) {
     include_once __DIR__.'/../var/bootstrap.php.cache';
