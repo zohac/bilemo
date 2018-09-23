@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Customer.
@@ -28,6 +29,12 @@ class Customer
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     *
      * @Serializer\Groups({"customer"})
      */
     private $name;
@@ -37,6 +44,12 @@ class Customer
      *
      * @ORM\Column(name="email", type="string", length=255)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     *
      * @Serializer\Groups({"customer"})
      */
     private $email;
@@ -45,6 +58,12 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      *
      * @Serializer\SerializedName("phoneNumber")
      * @Serializer\Groups({"customer"})
@@ -56,6 +75,12 @@ class Customer
      *
      * @ORM\Column(name="address", type="string", length=255)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     *
      * @Serializer\Groups({"customer"})
      */
     private $address;
@@ -64,6 +89,12 @@ class Customer
      * @var int
      *
      * @ORM\Column(name="postalCode", type="integer")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern="/^\d+$/",
+     *      message="Stock is an integer value."
+     * )
      *
      * @Serializer\SerializedName("postalCode")
      * @Serializer\Groups({"customer"})
@@ -74,6 +105,12 @@ class Customer
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      *
      * @Serializer\Groups({"customer"})
      */

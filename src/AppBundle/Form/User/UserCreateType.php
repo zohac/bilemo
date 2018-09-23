@@ -31,18 +31,28 @@ class UserCreateType extends AbstractType
         // The entity fields are added to our form.
         $builder
             ->add('username', TextType::class, [
-                'constraints' => [new NotBlank()],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['max' => 255]),
+                ],
             ])
             ->add('firstname', TextType::class, [
-                'constraints' => [new NotBlank()],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['max' => 255]),
+                ],
             ])
             ->add('lastname', TextType::class, [
-                'constraints' => [new NotBlank()],
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['max' => 255]),
+                ],
             ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email(),
                     new NotBlank(),
+                    new Length(['max' => 255]),
                 ],
             ])
             ->add('password', PasswordType::class, [

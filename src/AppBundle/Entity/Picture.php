@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Picture.
@@ -27,6 +28,12 @@ class Picture
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     *
      * @Serializer\Groups({"picture"})
      */
     private $name;
@@ -35,6 +42,12 @@ class Picture
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      *
      * @Serializer\Groups({"picture"})
      */

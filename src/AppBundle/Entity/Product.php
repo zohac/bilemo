@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Hateoas\Configuration\Annotation as Hateoas;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product.
@@ -46,6 +47,12 @@ class Product
      *
      * @ORM\Column(name="name", type="string", length=255)
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     *
      * @Serializer\Groups({"product"})
      */
     private $name;
@@ -54,6 +61,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      *
      * @Serializer\Groups({"product"})
      */
@@ -64,6 +77,8 @@ class Product
      *
      * @ORM\Column(name="description", type="text")
      *
+     * @Assert\NotBlank()
+     *
      * @Serializer\Groups({"product"})
      */
     private $description;
@@ -72,6 +87,12 @@ class Product
      * @var string
      *
      * @ORM\Column(name="manufacturer", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      *
      * @Serializer\Groups({"product"})
      */
@@ -82,6 +103,12 @@ class Product
      *
      * @ORM\Column(name="stock", type="integer", nullable=true)
      *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern="/^\d+$/",
+     *      message="Stock is an integer value."
+     * )
+     *
      * @Serializer\Groups({"product"})
      */
     private $stock;
@@ -91,6 +118,12 @@ class Product
      *
      * @ORM\Column(name="TVA", type="float")
      *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern="/^\d+(\.\d{1,2})$/",
+     *      message="Stock is a float value."
+     * )
+     *
      * @Serializer\Groups({"product"})
      */
     private $tVA;
@@ -99,6 +132,12 @@ class Product
      * @var float
      *
      * @ORM\Column(name="priceHT", type="float", nullable=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern="/^\d+(\.\d{1,2})$/",
+     *      message="Stock is a float value."
+     * )
      *
      * @Serializer\Groups({"product"})
      */

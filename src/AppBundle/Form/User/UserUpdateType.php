@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\EventListener\AntiSqlInjectionFormListener;
@@ -26,12 +27,25 @@ class UserUpdateType extends AbstractType
 
         // The entity fields are added to our form.
         $builder
-            ->add('username', TextType::class, [])
-            ->add('firstname', TextType::class, [])
-            ->add('lastname', TextType::class, [])
+            ->add('username', TextType::class, [
+                'constraints' => [
+                    new Length(['max' => 255]),
+                ],
+            ])
+            ->add('firstname', TextType::class, [
+                'constraints' => [
+                    new Length(['max' => 255]),
+                ],
+            ])
+            ->add('lastname', TextType::class, [
+                'constraints' => [
+                    new Length(['max' => 255]),
+                ],
+            ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email(),
+                    new Length(['max' => 255]),
                 ],
             ])
             ->addEventSubscriber(new AntiSqlInjectionFormListener());

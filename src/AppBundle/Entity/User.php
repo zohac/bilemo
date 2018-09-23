@@ -140,7 +140,7 @@ class User implements UserInterface
     /**
      * @var array
      *
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="array", length=100)
      */
     private $roles;
 
