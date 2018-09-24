@@ -59,7 +59,7 @@ class UserCreateType extends AbstractType
                 'constraints' => [
                     new Length(['max' => 4096]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z0-9]{6,}$/',
+                        'pattern' => '/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/',
                         'message' => 'Le mot de passe doit comporter au moins 6 caractères,
                         minuscule, majuscule et numérique.',
                     ]),
