@@ -9,6 +9,7 @@ use AppBundle\Form\User\UserUpdateType;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Form\User\UserUpdatePasswordType;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -58,7 +59,8 @@ class UserController extends FOSRestController
      */
     public function listAction(ObjectManager $entityManager, UserInterface $user = null)
     {
-        return $entityManager->getRepository(User::class)->findAllWhithAllEntities($user);
+        $users = $entityManager->getRepository(User::class)->findAllWhithAllEntities($user);
+        return $this->view($users, Response::HTTP_OK);
     }
 
     /**
@@ -107,7 +109,7 @@ class UserController extends FOSRestController
      */
     public function detailAction(User $user)
     {
-        return $user;
+        return $this->view($user, Response::HTTP_OK);
     }
 
     /**
@@ -171,7 +173,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Create the user
-        return $userCreateHandler->handle($form);
+        return $this->view($userCreateHandler->handle($form), Response::HTTP_CREATED);
     }
 
     /**
@@ -239,7 +241,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Update the user
-        return $userUpdateHandler->handle($form, $user);
+        return $this->view($userUpdateHandler->handle($form, $user), Response::HTTP_OK);
     }
 
     /**
@@ -308,7 +310,7 @@ class UserController extends FOSRestController
         $form->submit($data);
 
         // Update the user
-        return $userPasswordHandler->handle($form, $user);
+        return $this->view($userPasswordHandler->handle($form, $user), Response::HTTP_OK);
     }
 
     /**
