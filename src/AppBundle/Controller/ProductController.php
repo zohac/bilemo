@@ -53,6 +53,7 @@ class ProductController extends FOSRestController
     public function listAction(ObjectManager $entityManager)
     {
         $Products = $entityManager->getRepository(Product::class)->findAllWhithAllEntities();
+
         return $this->view($Products, Response::HTTP_OK);
     }
 

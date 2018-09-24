@@ -60,6 +60,7 @@ class UserController extends FOSRestController
     public function listAction(ObjectManager $entityManager, UserInterface $user = null)
     {
         $users = $entityManager->getRepository(User::class)->findAllWhithAllEntities($user);
+
         return $this->view($users, Response::HTTP_OK);
     }
 
