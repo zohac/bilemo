@@ -126,7 +126,7 @@ class User implements UserInterface
      *
      * @Assert\Length(max=4096)
      * @Assert\Regex(
-     *      pattern="/^[a-zA-Z0-9]{6,}$/",
+     *      pattern="/^\S*(?=\S{6,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])(?=\S*[\W])\S*$/",
      *      message="Le mot de passe doit comporter au moins 6 caractères, minuscule, majuscule et numérique."
      * )
      * @Assert\NotBlank(groups={"create"})

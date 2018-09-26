@@ -6,6 +6,7 @@ use AppBundle\Entity\Product;
 use Swagger\Annotations as SWG;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -51,7 +52,9 @@ class ProductController extends FOSRestController
      */
     public function listAction(ObjectManager $entityManager)
     {
-        return $entityManager->getRepository(Product::class)->findAllWhithAllEntities();
+        $Products = $entityManager->getRepository(Product::class)->findAllWhithAllEntities();
+
+        return $this->view($Products, Response::HTTP_OK);
     }
 
     /**
@@ -102,6 +105,6 @@ class ProductController extends FOSRestController
      */
     public function detailAction(Product $product)
     {
-        return $product;
+        return $this->view($product, Response::HTTP_OK);
     }
 }
