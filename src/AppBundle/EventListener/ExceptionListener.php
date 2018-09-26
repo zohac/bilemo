@@ -36,9 +36,11 @@ class ExceptionListener
         // You get the exception object from the received event
         $exception = $event->getException();
 
+        // Get the message and the code
         $messages = (method_exists($exception, 'getMessages')) ? $exception->getMessages() : $exception->getMessage();
         $code = (method_exists($exception, 'getStatusCode')) ? $exception->getStatusCode() : $exception->getCode();
 
+        // Construct the message
         $message[] = [
             'code' => $code,
             'messages' => $messages,
