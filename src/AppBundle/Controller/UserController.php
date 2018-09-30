@@ -17,6 +17,7 @@ use AppBundle\Service\User\UserCreateHandlerService;
 use AppBundle\Service\User\UserUpdateHandlerService;
 use AppBundle\Service\User\UserPasswordHandlerService;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -56,6 +57,8 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
+     *
+     * @Cache(public=true)
      */
     public function listAction(ObjectManager $entityManager, UserInterface $user = null)
     {
@@ -107,6 +110,8 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
+     *
+     * @Cache(public=true)
      */
     public function detailAction(User $user)
     {

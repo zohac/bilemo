@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 /**
@@ -49,12 +50,14 @@ class ProductController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
+     *
+     * @Cache(public=true)
      */
     public function listAction(ObjectManager $entityManager)
     {
-        $Products = $entityManager->getRepository(Product::class)->findAllWhithAllEntities();
+        $products = $entityManager->getRepository(Product::class)->findAllWhithAllEntities();
 
-        return $this->view($Products, Response::HTTP_OK);
+        return $this->view($products, Response::HTTP_OK);
     }
 
     /**
@@ -102,6 +105,8 @@ class ProductController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
+     *
+     * @Cache(public=true)
      */
     public function detailAction(Product $product)
     {
