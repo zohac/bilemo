@@ -58,7 +58,10 @@ class UserController extends FOSRestController
      *     )
      * )
      *
-     * @Cache(public=true)
+     * @Cache(
+     *      expires="tomorrow",
+     *      public=true,
+     * )
      */
     public function listAction(ObjectManager $entityManager, UserInterface $user = null)
     {
@@ -111,7 +114,10 @@ class UserController extends FOSRestController
      *     )
      * )
      *
-     * @Cache(public=true)
+     * @Cache(
+     *      expires="tomorrow",
+     *      public=true,
+     * )
      */
     public function detailAction(User $user)
     {
@@ -169,6 +175,9 @@ class UserController extends FOSRestController
      */
     public function createAction(Request $request, UserCreateHandlerService $userCreateHandler)
     {
+        $cache = $this->get('cache_warmer');
+        //$item = $cache->getItem('cache_key');
+        dump($cache); die;
         // Get the data POST
         $data = json_decode($request->getContent(), true);
 

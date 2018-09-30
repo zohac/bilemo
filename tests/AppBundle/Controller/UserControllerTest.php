@@ -155,11 +155,12 @@ class UserControllerTest extends WebTestCase
                     'firstname' => 'test',
                     'lastname' => 'test',
                     'email' => 'test@test.com',
-                    'password' => '1GreatPassword',
+                    'password' => '1GreatP@ssword',
                 ]
             )
         );
         // Check the response
+        //\var_dump($client->getResponse()); die;
         $this->assertSame(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
     }
 
@@ -212,7 +213,7 @@ class UserControllerTest extends WebTestCase
             )
         );
         // Check the response
-        $this->assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $client->getResponse()->getStatusCode());
+        $this->assertSame(Response::HTTP_UNPROCESSABLE_ENTITY, $client->getResponse()->getStatusCode());
     }
 
     /**
@@ -275,7 +276,7 @@ class UserControllerTest extends WebTestCase
     public function testUpdatePasswordActionWithToken()
     {
         // Get an authenticated client
-        $client = $this->createAuthenticatedClient('test', '1GreatPassword');
+        $client = $this->createAuthenticatedClient('test', '1GreatP@ssword');
         // Test the route with patch data
         $client->request(
             'PATCH',
@@ -285,7 +286,7 @@ class UserControllerTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             json_encode(
                 [
-                    'password' => '2GreatPassword',
+                    'password' => 'AnotherGr3atP@ssword',
                 ]
             )
         );

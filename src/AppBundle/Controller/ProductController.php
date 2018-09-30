@@ -51,7 +51,10 @@ class ProductController extends FOSRestController
      *     )
      * )
      *
-     * @Cache(public=true)
+     * @Cache(
+     *      expires="tomorrow",
+     *      public=true,
+     * )
      */
     public function listAction(ObjectManager $entityManager)
     {
@@ -106,7 +109,10 @@ class ProductController extends FOSRestController
      *     )
      * )
      *
-     * @Cache(public=true)
+     * @Cache(
+     *      expires="tomorrow",
+     *      public=true,
+     * )
      */
     public function detailAction(Product $product)
     {
