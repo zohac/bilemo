@@ -40,11 +40,6 @@ class ExceptionListener
         $messages = (method_exists($exception, 'getMessages')) ? $exception->getMessages() : $exception->getMessage();
         $code = (method_exists($exception, 'getStatusCode')) ? $exception->getStatusCode() : $exception->getCode();
 
-        // Check code value
-        if (0 == $code) {
-            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
-
         // Construct the message
         $message[] = [
             'code' => $code,

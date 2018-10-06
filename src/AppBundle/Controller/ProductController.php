@@ -52,7 +52,7 @@ class ProductController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="60",
+     *      expires="tomorrow",
      *      public=true,
      * )
      */
@@ -64,8 +64,6 @@ class ProductController extends FOSRestController
     }
 
     /**
-     * Get one product.
-     * 
      * @Rest\Get(
      *      path="/api/products/{id}",
      *      name="product_detail",
@@ -112,7 +110,7 @@ class ProductController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="60",
+     *      expires="tomorrow",
      *      public=true,
      * )
      */

@@ -32,12 +32,6 @@ framework:
         log: true
     templating:
         engines: ['twig']
-    cache:
-        pools:
-            bilemo_cache:
-                adapter: cache.app
-                public: true
-                default_lifetime: 86400 # 24 hours
 
 # Twig Configuration
 twig:

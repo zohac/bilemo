@@ -21,13 +21,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use AppBundle\Service\CacheClearerService;
 
 class UserController extends FOSRestController
 {
     /**
-     * Get the list of users.
-     * 
      * @Rest\Get(
      *      path="/api/users",
      *      name="users_list"
@@ -62,7 +59,7 @@ class UserController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="10",
+     *      expires="tomorrow",
      *      public=true,
      * )
      */
@@ -74,8 +71,6 @@ class UserController extends FOSRestController
     }
 
     /**
-     * Get one user.
-     * 
      * @Rest\Get(
      *      path="/api/users/{id}",
      *      name="users_show",
@@ -120,7 +115,7 @@ class UserController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="10",
+     *      expires="tomorrow",
      *      public=true,
      * )
      */
@@ -130,8 +125,6 @@ class UserController extends FOSRestController
     }
 
     /**
-     * Create one user.
-     * 
      * @Rest\Post(
      *      path="/api/users",
      *      name="users_detail",
@@ -333,8 +326,6 @@ class UserController extends FOSRestController
     }
 
     /**
-     * Delete one user.
-     * 
      * @Rest\Delete(
      *      path="/api/users/{id}",
      *      name="users_delete",
@@ -377,7 +368,6 @@ class UserController extends FOSRestController
      */
     public function deleteAction(User $user, ObjectManager $entityManager)
     {
-        // Remove the user
         $entityManager->remove($user);
         $entityManager->flush();
 
