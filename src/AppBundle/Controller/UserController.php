@@ -368,6 +368,7 @@ class UserController extends FOSRestController
      */
     public function deleteAction(User $user, ObjectManager $entityManager)
     {
+        // Remove the user
         $entityManager->remove($user);
         $entityManager->flush();
 
