@@ -47,14 +47,9 @@ Changes the jwt_key_pass_phrase parameter in the 'app/config/parameters.yml' fil
 
 ## Tests
 
-Configure the application by completing the file /app/config/parameters.yml
-Create a variable 'database_test_name: bilemo_test'.
+You can start the tests with the following command:
 
-    php bin/console doctrine:schema:update --force --env=test
-
-If you want to use a data set
-
-    php bin/console doctrine:fixtures:load --env=test
+    ./vendor/bin/simple-phpunit --coverage-html web/test-coverage
 
 ## Dependency
 
