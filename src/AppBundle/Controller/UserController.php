@@ -59,7 +59,7 @@ class UserController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="tomorrow",
+     *      expires="60",
      *      public=true,
      * )
      */
@@ -115,7 +115,7 @@ class UserController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="tomorrow",
+     *      expires="60",
      *      public=true,
      * )
      */
