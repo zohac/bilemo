@@ -17,14 +17,14 @@ use AppBundle\Service\User\UserCreateHandlerService;
 use AppBundle\Service\User\UserUpdateHandlerService;
 use AppBundle\Service\User\UserPasswordHandlerService;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class UserController extends FOSRestController
 {
     /**
+     * Get the list of users.
+     *
      * @Rest\Get(
      *      path="/api/users",
      *      name="users_list"
@@ -57,11 +57,6 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
-     *
-     * @Cache(
-     *      expires="60",
-     *      public=true,
-     * )
      */
     public function listAction(ObjectManager $entityManager, UserInterface $user = null)
     {
@@ -71,12 +66,13 @@ class UserController extends FOSRestController
     }
 
     /**
+     * Get one user.
+     *
      * @Rest\Get(
      *      path="/api/users/{id}",
      *      name="users_show",
      *      requirements = {"id"="\d+"}
      * )
-     * @Entity("user", expr="repository.findOneWhithAllEntities(id)")
      *
      * @Rest\View(statusCode = 200)
      *
@@ -113,18 +109,17 @@ class UserController extends FOSRestController
      *          description="Bearer Token",
      *     )
      * )
-     *
-     * @Cache(
-     *      expires="60",
-     *      public=true,
-     * )
      */
-    public function detailAction(User $user)
+    public function detailAction(ObjectManager $entityManager, UserInterface $user = null, int $id)
     {
+        $user = $entityManager->getRepository(User::class)->findOneWhithAllEntities($user, $id);
+
         return $this->view($user, Response::HTTP_OK);
     }
 
     /**
+     * Create one user.
+     *
      * @Rest\Post(
      *      path="/api/users",
      *      name="users_detail",
@@ -326,6 +321,8 @@ class UserController extends FOSRestController
     }
 
     /**
+     * Delete one user.
+     *
      * @Rest\Delete(
      *      path="/api/users/{id}",
      *      name="users_delete",
