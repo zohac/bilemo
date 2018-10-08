@@ -2,7 +2,31 @@
     username: sjouan
     firstname: simon
     lastname: jouan
-    email:  'test@cyberdyne.com'
-    password: 1
+    email:  'sjouan@customer.com'
+    password: 1GreatP@ssword
     roles: ['ROLE_USER']
-    customer: 'Cyberdyne'
+    customer: 'Customer'
+1:
+    username: user2
+    firstname: user
+    lastname: AGoodLastname
+    email:  'user2@customer.com'
+    password: 1GreatP@ssword
+    roles: ['ROLE_USER']
+    customer: 'Customer'
+2:
+    username: user3
+    firstname: user
+    lastname: AGoodLastname
+    email:  'user3@customer.com'
+    password: 1GreatP@ssword
+    roles: ['ROLE_USER']
+    customer: 'Customer'
+3:
+    username: user4
+    firstname: user
+    lastname: AGoodLastname
+    email:  'user4@customer2.com'
+    password: 1GreatP@ssword
+    roles: ['ROLE_USER']
+    customer: 'Customer2'

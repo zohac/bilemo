@@ -1,7 +1,14 @@
 0:
-    name: 'Cyberdyne'
-    email:  'term@cyberdyne.com'
+    name: 'Customer'
+    email:  'user@customer.com'
     phoneNumber: '01XXXXXXXX'
-    address: '800 rue Fremont'
+    address: 'A good adress'
+    postalCode: '75000'
+    country: 'Paris'
+1:
+    name: 'Customer2'
+    email:  'user@customer2.com'
+    phoneNumber: '01XXXXXXXX'
+    address: 'An another Good adress'
     postalCode: '75000'
     country: 'Paris'
