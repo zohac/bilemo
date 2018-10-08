@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Controller managing the products.
@@ -26,6 +27,8 @@ class ProductController extends FOSRestController
      * )
      *
      * @Rest\View(StatusCode = 200)
+     * 
+     * @Security("has_role('ROLE_USER')")
      *
      * @SWG\Get(
      *     description="Get the list of products.",
@@ -74,6 +77,8 @@ class ProductController extends FOSRestController
      * @Entity("product", expr="repository.findOneWhithAllEntities(id)")
      *
      * @Rest\View(StatusCode = 200)
+     * 
+     * @Security("has_role('ROLE_USER')")
      *
      * @SWG\Get(
      *     description="Get one product.",
