@@ -324,9 +324,8 @@ class UserController extends FOSRestController
      * Delete one user.
      *
      * @Rest\Delete(
-     *      path="/api/users/{id}",
+     *      path="/api/users",
      *      name="users_delete",
-     *      requirements = {"id"="\d+"}
      * )
      * @Rest\View(StatusCode = 204)
      *
@@ -363,7 +362,7 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function deleteAction(User $user, ObjectManager $entityManager)
+    public function deleteAction(UserInterface $user, ObjectManager $entityManager)
     {
         // Remove the user
         $entityManager->remove($user);
