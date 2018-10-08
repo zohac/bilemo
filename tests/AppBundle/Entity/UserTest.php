@@ -28,7 +28,7 @@ class UserTest extends WebTestCase
     {
         $customer = $this->entityManager
                 ->getRepository(Customer::class)
-                ->findOneBy(['name' => 'Cyberdyne']);
+                ->findOneBy(['name' => 'Customer']);
 
         $user = new User();
 

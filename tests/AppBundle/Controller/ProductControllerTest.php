@@ -66,7 +66,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetListActionWithToken()
     {
         // Get an authenticated client
-        $client = $this->createAuthenticatedClient('sjouan', '1');
+        $client = $this->createAuthenticatedClient('sjouan', '1GreatP@ssword');
         // Test the route
         $client->request('GET', '/api/products');
 
@@ -95,7 +95,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetDetailActionWithToken()
     {
         // Get an authenticated client
-        $client = $this->createAuthenticatedClient('sjouan', '1');
+        $client = $this->createAuthenticatedClient('sjouan', '1GreatP@ssword');
         // Test the route
         $client->request('GET', '/api/products/'.$this->product->getId());
         // Check the response

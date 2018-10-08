@@ -32,7 +32,7 @@ class SecurityControllerTest extends WebTestCase
             '/api/login_check',
             array(
                 '_username' => 'sjouan',
-                '_password' => '1',
+                '_password' => '1GreatP@ssword',
             )
         );
         // Check the content body
