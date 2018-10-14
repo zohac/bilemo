@@ -69,7 +69,9 @@ You can start the tests with the following command:
 
 ## Using the API
 
+Use the documentation at the address:
 
+    http://my.server/api/doc
 
 ## Issues
 
