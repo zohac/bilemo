@@ -1,5 +1,7 @@
 # bilemo
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c7b27f8969447c4b41b7d1eb818afc1)](https://www.codacy.com/app/zohac/bilemo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zohac/bilemo&amp;utm_campaign=Badge_Grade)
+
 ## About
 
 A web service exposing an API.
@@ -64,6 +66,10 @@ You can start the tests with the following command:
 * JMSSerializerBundle "jms/serializer-bundle"
   * Required for BazingaHateoasBundle.
 * orm-fixtures "doctrine/doctrine-fixtures-bundle"
+
+## Using the API
+
+
 
 ## Issues
 
