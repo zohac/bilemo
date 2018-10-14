@@ -222,13 +222,11 @@ class UserControllerTest extends WebTestCase
     public function testUpdateActionWithToken()
     {
         // Get an authenticated client
-        $client = $this->createAuthenticatedClient('sjouan', '1GreatP@ssword');
-        // Retrieves a user from the database
-        $user = $this->getUser('test');
+        $client = $this->createAuthenticatedClient('test', '1GreatP@ssword');
         // Test the route with patch data
         $client->request(
             'PATCH',
-            '/api/users/'.$user->getId(),
+            '/api/users',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -251,12 +249,10 @@ class UserControllerTest extends WebTestCase
     {
         // Create an un-authenticated client
         $client = static::createClient();
-        // Retrieves a user from the database
-        $user = $this->getUser('test');
         // Test the route with patch data
         $client->request(
             'PATCH',
-            '/api/users/'.$user->getId(),
+            '/api/users',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
@@ -325,8 +321,6 @@ class UserControllerTest extends WebTestCase
     {
         // Create an un-authenticated client
         $client = static::createClient();
-        // Retrieves a user from the database
-        $user = $this->getUser('test');
         // Test the route to delete a user
         $client->request('DELETE', '/api/users');
         // Check the response
@@ -340,8 +334,6 @@ class UserControllerTest extends WebTestCase
     {
         // Get an authenticated client
         $client = $this->createAuthenticatedClient('test', 'AnotherGr3atP@ssword');
-        // Retrieves a user from the database
-        $user = $this->getUser('test');
         // Test the route to delete a user
         $client->request('DELETE', '/api/users');
         // Check the response
