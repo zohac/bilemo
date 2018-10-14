@@ -18,7 +18,6 @@ use AppBundle\Service\User\UserUpdateHandlerService;
 use AppBundle\Service\User\UserPasswordHandlerService;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class UserController extends FOSRestController
 {
