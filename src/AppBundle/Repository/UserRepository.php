@@ -38,13 +38,13 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
      *
      * @return User|null
      */
-    public function findOneWhithAllEntities(User $user, int $value): ?User
+    public function findOneWhithAllEntities(User $user, int $id): ?User
     {
         return $this->createQueryBuilder('u')
             ->leftJoin('u.customer', 'c')
             ->addSelect('c')
             ->andWhere('u.id = :id')
-            ->setParameter('id', $value)
+            ->setParameter('id', $id)
             ->andWhere('c.name = :customer')
             ->setParameter('customer', $user->getCustomer()->getName())
             ->getQuery()

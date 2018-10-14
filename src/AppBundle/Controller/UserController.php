@@ -187,11 +187,9 @@ class UserController extends FOSRestController
      * Update one user.
      *
      * @Rest\Patch(
-     *      path="/api/users/{id}",
-     *      name="users_update",
-     *      requirements = {"id"="\d+"}
+     *      path="/api/users",
+     *      name="users_update"
      * )
-     * @ParamConverter("user",  options={"mapping"={"id"="id"}})
      *
      * @Rest\View(StatusCode = 200)
      *
@@ -236,7 +234,7 @@ class UserController extends FOSRestController
      *     )
      * )
      */
-    public function updateAction(Request $request, UserUpdateHandlerService $userUpdateHandler, User $user)
+    public function updateAction(Request $request, UserUpdateHandlerService $userUpdateHandler, UserInterface $user)
     {
         // Get the data POST
         $data = json_decode($request->getContent(), true);
