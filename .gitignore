@@ -23,3 +23,7 @@
 ###> PHPmd ###
 phpmd.html
 ###< PHPmd ###
+
+###> test results ###
+/web/test-coverage/*
+###< test results ###

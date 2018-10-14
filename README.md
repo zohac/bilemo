@@ -1,5 +1,7 @@
 # bilemo
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9c7b27f8969447c4b41b7d1eb818afc1)](https://www.codacy.com/app/zohac/bilemo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zohac/bilemo&amp;utm_campaign=Badge_Grade)
+
 ## About
 
 A web service exposing an API.
@@ -39,11 +41,17 @@ If you want to use a data set
 
 Configure the jwt authentication
 
-    mkdir -p config/jwt
-    openssl genrsa -out config/jwt/private.pem -aes256 4096
-    openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+    mkdir var/jwt
+    openssl genrsa -out var/jwt/private.pem -aes256 4096
+    openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 
-Changes the pass phrase in the '.env' file.
+Changes the jwt_key_pass_phrase parameter in the 'app/config/parameters.yml' file.
+
+## Tests
+
+You can start the tests with the following command:
+
+    ./vendor/bin/simple-phpunit --coverage-html web/test-coverage
 
 ## Dependency
 
@@ -58,6 +66,12 @@ Changes the pass phrase in the '.env' file.
 * JMSSerializerBundle "jms/serializer-bundle"
   * Required for BazingaHateoasBundle.
 * orm-fixtures "doctrine/doctrine-fixtures-bundle"
+
+## Using the API
+
+Use the documentation at the address:
+
+    http://my.server/api/doc
 
 ## Issues
 

@@ -33,3 +33,16 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    AppBundle\Service\CacheClearerService:
+        arguments:
+            - '@filesystem'
+            - "%kernel.cache_dir%"
+
+    AppBundle\EventListener\CacheClearerListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
