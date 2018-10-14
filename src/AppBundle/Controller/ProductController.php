@@ -27,7 +27,7 @@ class ProductController extends FOSRestController
      * )
      *
      * @Rest\View(StatusCode = 200)
-     * 
+     *
      * @Security("has_role('ROLE_USER')")
      *
      * @SWG\Get(
@@ -55,7 +55,7 @@ class ProductController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="tomorrow",
+     *      expires="1 hour",
      *      public=true,
      * )
      */
@@ -77,7 +77,7 @@ class ProductController extends FOSRestController
      * @Entity("product", expr="repository.findOneWhithAllEntities(id)")
      *
      * @Rest\View(StatusCode = 200)
-     * 
+     *
      * @Security("has_role('ROLE_USER')")
      *
      * @SWG\Get(
@@ -117,7 +117,7 @@ class ProductController extends FOSRestController
      * )
      *
      * @Cache(
-     *      expires="tomorrow",
+     *      expires="1 hour",
      *      public=true,
      * )
      */
