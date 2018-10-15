@@ -8,6 +8,7 @@ require __DIR__.'/../vendor/autoload.php';
  * BlackFire extension
  */
 // If the header is set
+/*
 if (isset($_SERVER['HTTP_BLACKFIRETRIGGER'])) {
     $config = new \Blackfire\ClientConfiguration();
     $config->setClientId('852814fc-548f-4216-bc37-03d5aab5662f');
@@ -24,7 +25,7 @@ if (isset($_SERVER['HTTP_BLACKFIRETRIGGER'])) {
         $profile = $blackfire->endProbe($probe);
     });
 }
-
+*/
 if (PHP_VERSION_ID < 70000) {
     include_once __DIR__.'/../var/bootstrap.php.cache';
 }
